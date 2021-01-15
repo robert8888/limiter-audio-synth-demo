@@ -1,0 +1,76 @@
+@import "./src/css/colors.scss";
+
+$color-4: #5d786c;
+$color-5: #6e8976;
+$color-6: #779789;
+$color-7: #6fd684;
+$color-8: #539866;
+
+.c{
+    &-spectrum{
+       display: flex;
+        width: 100%;
+        &__screen{
+            max-height: 260px;
+            width: 100%;
+            overflow: hidden;
+            padding: 10px;
+            display: flex;
+            position: relative;
+            border: 5px solid rgba(#000, 0.8);
+            border-radius: 10px;
+            box-shadow:
+                0 0 2px 0px gray, 
+                0 0 50px 10px inset  #1c1b11;
+            background-image: 
+               radial-gradient(ellipse at 25% 130%, #c29c45 0%, transparent 25%),
+               radial-gradient(ellipse at 75% 130%, #c29c45 0%, transparent 25%),
+               radial-gradient(ellipse at 25% -30%, #c29c45 0%, transparent 25%),
+               radial-gradient(ellipse at 75% -30%, #c29c45 0%, transparent 25%),
+               radial-gradient(ellipse, #1c1b11, #1f1d10, #221f0e, #25200d, #29220b, #2c240b, #30260a, #33280a, #372b0c, #3a2e0d, #3e310e, #42340f),;
+        }
+        &__grid{
+            width: 100%;
+            height: 230px;
+            border: 1px solid $color-2;
+            background-size: 50px 50px;
+            background-image:
+              linear-gradient(to right, grey 1px, transparent 1px),
+              linear-gradient(to bottom, grey 1px, transparent 1px);
+            background-position: center;
+
+            display: grid;
+            &__axis{
+                margin: auto;
+                grid-row: 1;
+                grid-column: 1;
+
+                background-size: 12.5px 12.5px;
+                background-image:
+                    linear-gradient(to right, $color-3 1px, transparent 1px),
+                    linear-gradient(to bottom, $color-3 1px, transparent 1px);
+
+                &--x{
+                    width: 10px;
+                    height: 100%;
+                    background-position: left 5px top;
+
+                }
+                &--y{
+                    width: 100%;
+                    height: 10px;
+                    background-position: left top 5px; 
+                }
+            }
+        }
+
+        &__canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%
+        }
+
+    }
+}

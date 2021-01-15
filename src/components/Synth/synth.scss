@@ -1,0 +1,39 @@
+.c-synth{
+    //min-width: 150px;
+    padding: 0 ;
+    height: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+    &__oscillator{
+        display: flex;
+        flex-direction: column;
+    }
+    .c-list--waves{
+        width: 100px;
+    }
+    .c-envelope{
+        width: 170px;
+
+    }
+    &__group{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+    &__filter{
+        display: flex;
+        flex-direction: column;
+        &__knob{
+            width: 45px;
+            height: 45px;
+        }
+    }
+    &__oscillator{
+        &__knob{
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

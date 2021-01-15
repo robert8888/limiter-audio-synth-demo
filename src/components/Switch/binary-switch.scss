@@ -1,0 +1,65 @@
+
+@import "./src/css/colors.scss";
+@import "switch.scss";
+
+.c-switch{
+    --width: 40px;
+    --height: 20px;
+    --color: #FFFFFF88;
+    --slider: rgb(39, 39, 39);
+    --thumb: #{$color-8};
+    --thumb-hover: #{$color-7};
+    width: var(--width);
+    height: var(--height);
+    position: relative;
+    display: flex;
+
+    &__container{
+        height: 100%;
+        width: 100%;
+    }
+
+    &__input{
+        @include slider-rail-appearance(var(--slider), var(--height));
+        appearance: none;
+        position: absolute;
+        width: var(--width);
+        height: var(--height);
+    }
+
+    &__input:checked{
+        background: $color-3;
+        box-shadow: 0 0 10px 2px inset #000000AA;
+        & + *{
+            transform: translateX(calc(var(--width) - var(--height)));
+        }
+    }
+
+    &__thumb{        
+        @include  thumb-appearance(var(--thumb));
+        position: absolute;
+        height: 100%;
+        width: var(--height);
+        top:0;
+        left: 0;
+        transform: translateX(0);
+        transition: transform .5s ease-in-out;
+    }
+    
+    &__label{
+        &--left{
+            left: calc(var(--width) + 5px);
+            top: 1px;
+        }
+        &--bottom{
+            top: calc(var(--height) + 7.5px);
+            left: 5px
+        }
+        position: relative;
+        color: var(--color);
+        white-space: nowrap;
+        font-family:  'Roboto Mono', monospace;
+        font-size: .8em;
+        text-transform: uppercase;
+    }
+}

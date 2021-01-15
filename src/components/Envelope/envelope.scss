@@ -1,0 +1,11 @@
+.c-envelope{
+    flex: 1;
+    display: flex;
+    &__slider-container{
+        width: 30px;
+        height: 100%;
+    }
+    .c-group{
+        justify-content: center;
+    }
+}

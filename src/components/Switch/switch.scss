@@ -1,0 +1,21 @@
+@mixin  thumb-appearance($color){
+    box-shadow:0 0 2px 2px black;
+    border-radius: 50%;
+    background: $color;
+    $alpha: .50;
+    background-image:conic-gradient(rgba(#d5d8e1, $alpha), rgba(#666c80, $alpha) 36deg, 
+        rgba(#e6e7eb, $alpha) 75deg, rgba(grey, $alpha) 105deg, 
+        rgba(#c5c7d3, $alpha) 135deg, rgba(#898c9b, $alpha) 170deg, 
+        rgba(#d7dee8, $alpha), rgba(#787d90, $alpha) 230deg, 
+        rgba(#c6c9d2, $alpha) 280deg, rgba(#9296a3, $alpha));
+}
+
+@mixin  slider-rail-appearance($color, $radius) {
+    background: $color;
+    box-shadow: 0 0 10px 2px inset #FFFFFFAA;
+    border: 1px solid #FFFFFF99;
+    box-shadow: 0 0 0 1px #FFFFFF33;
+    transition: background-color .5s ease-in;
+    border-radius: $radius;
+
+}

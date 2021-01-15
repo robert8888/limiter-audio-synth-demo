@@ -1,0 +1,90 @@
+@import "./src/css/general.scss";
+
+.l{
+    &-rack{
+        @include bg-wood();
+        padding: 20px;
+        position: relative;
+
+        &::before{
+            @include bg-wood("horizontal");
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 30px;
+            width: 100%;
+            border-bottom: 5px solid black;
+            border-radius: 5px;
+        }
+        &__row{
+            @include bg-letter();
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            border: 5px solid black;
+            @media screen and (min-width : 1020px) {
+                & > :not(:last-of-type){
+                    margin-right: 20px;
+                }
+            }
+        };
+        &__group{
+            flex: 100 1 300px;
+            max-width: 700px;
+            min-width: 0;
+            margin-bottom: 10px;
+
+        }
+
+        &__container{
+            @include border-metal();
+            @include bg-metal();
+            display: flex;
+        }
+
+        &__grid{
+            margin: 2px 0;
+            display: grid;
+            grid-template-rows: 1fr 2fr;
+            grid-template-columns: auto auto 85px;
+            grid-template-areas: "limiter limiter mode"
+                                  "mixer synth synth";
+        }
+        .c{
+            &-limiter{
+                grid-area: limiter;
+            }
+            &-synth {
+                grid-area: synth;
+            }
+            &-mixer {
+                grid-area: mixer;
+            }
+            &-synth-mode {
+                grid-area: mode;
+                margin: auto auto auto 0;
+                transform: translateY(-5px);
+            }
+        }
+    }
+}
+
+.c-group{
+    border: 1px solid #FFFFFF66;
+    border-radius: 3px;
+    margin: 10px;
+    display: flex;
+    padding-top: 15px;
+    flex: 1;
+    &__title{
+        margin: 0 auto;
+        color: #FFFFFF88;
+        padding: 0 10px;
+        text-transform: uppercase;
+        font-family: 'Roboto Mono', monospace;
+        font-size: .8em;
+    }
+}

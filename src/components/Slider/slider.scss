@@ -1,0 +1,65 @@
+
+@import "./src/css/colors.scss";
+
+.c-slider{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-bottom: 25px;
+    padding-top: 0;
+    &, & > * {
+        user-select: none;
+    }
+    &__thumb{
+        z-index: 1;
+        position: absolute;
+        width: 25px;
+        height: 15px;
+        bottom: 0;
+        left: calc(50% - 12.5px);
+        background: black;
+        background-image: linear-gradient(to bottom, black 0%, rgb(42, 58, 48) 50%, black 100%);
+        border: 1px solid rgba(#FFF, 0.3);
+        border-radius: 2px;
+        &:after{
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            top: 6px;
+            background: rgba(#FFF, 0.4);
+        }
+    }
+    $self: &;
+    &:hover, &--active{
+        #{$self}__thumb:after{
+            background: #{$color-8};
+            height: 2px;
+        }
+    }
+    &__axis{
+        width: 8px;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background-size: 50px 11px;
+        background-image:
+          linear-gradient(to right, rgba(51, 51, 51, .7) 2px, transparent 1px),
+          linear-gradient(to bottom,transparent 0px, rgba(240, 240, 240, .7) 1px, transparent 0px);
+        background-position: left 3px top -1px;
+
+    }
+    &__title{
+        height: 15px;
+        color: white;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        font-size: .8em;
+        transform: translateX(-50%);
+        color: #ffffffaa;
+    }
+}

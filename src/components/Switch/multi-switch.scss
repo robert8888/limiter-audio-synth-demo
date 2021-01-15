@@ -1,0 +1,49 @@
+
+@import "./src/css/colors.scss";
+@import "switch.scss";
+
+
+.c-multi-switch{
+    --index: 1;
+    --size: 0;
+    --height: 20px;
+    --width: calc(var(--height) * var(--size));
+    --color: #FFFFFF88;
+    --slider: rgb(39, 39, 39);
+    --thumb: #{$color-8};
+    --thumb-hover: #{$color-7};
+
+    &, & * {
+        user-select: none;
+        cursor: pointer;
+    }
+
+    &__rail{
+        @include slider-rail-appearance(var(--slider), var(--height));
+        width: var(--width);
+        height: var(--height);
+        position: relative;
+    }
+    &__thumb{
+        @include  thumb-appearance(var(--thumb));
+        width: var(--height);
+        height: var(--height);
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform .5s ease-in-out;
+        transform: translateX(calc((var(--width) - var(--height)) / (var(--size) - 1) * var(--index)));
+    }
+    &__label{
+        color: var(--color);
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin-top: 5px;
+        text-align: center;
+        white-space: nowrap;
+        font-family:  'Roboto Mono', monospace;
+        font-size: .8em;
+        text-transform: uppercase;
+    }
+}

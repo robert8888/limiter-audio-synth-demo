@@ -1,0 +1,81 @@
+
+@import "./src/css/colors.scss";
+
+
+.c-list{
+    width: 150px;
+    height: 30px;
+    border: 1px solid #FFFFFF66;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+    &__list{
+        margin-left: 8%;
+        padding: 0;
+        color: #FFFFFF88;
+    }
+    &__item{
+        height: 30px;
+        max-width: 80%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        text-transform: uppercase;
+        font-family: 'Roboto Mono', monospace;
+        transition: transform .3s ease-in-out;
+        span{
+            font-size: .8em;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__button{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 25px;
+        height: 50%;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        i {
+            display: block;
+            line-height: 30px;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            border-bottom: 9px solid #FFFFFF66;
+        }
+        &--down{
+            top: unset;
+            bottom: 0;
+            i {
+                border:unset;
+                border-right: 8px solid transparent;
+                border-left: 8px solid transparent;
+                border-top: 9px solid #FFFFFF66;
+            }
+
+            &:hover i {
+                border-top-color: $color-7;
+            }
+            &:hover:active i {
+                border-top-color: $color-8;
+            }
+    
+        }
+
+        &:hover i {
+            border-bottom-color:$color-7;
+        }
+        &:hover:active i {
+            border-bottom-color: $color-8;
+        }
+
+    }
+}
