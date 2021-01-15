@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/limiter-audio-synth-demo/static/css/main.bea227b9.chunk.css",
+    "main.js": "/limiter-audio-synth-demo/static/js/main.d925c3e0.chunk.js",
+    "main.js.map": "/limiter-audio-synth-demo/static/js/main.d925c3e0.chunk.js.map",
+    "runtime-main.js": "/limiter-audio-synth-demo/static/js/runtime-main.fcc45eec.js",
+    "runtime-main.js.map": "/limiter-audio-synth-demo/static/js/runtime-main.fcc45eec.js.map",
+    "static/js/2.2f6b3048.chunk.js": "/limiter-audio-synth-demo/static/js/2.2f6b3048.chunk.js",
+    "static/js/2.2f6b3048.chunk.js.map": "/limiter-audio-synth-demo/static/js/2.2f6b3048.chunk.js.map",
+    "static/js/3.ced7367e.chunk.js": "/limiter-audio-synth-demo/static/js/3.ced7367e.chunk.js",
+    "static/js/3.ced7367e.chunk.js.map": "/limiter-audio-synth-demo/static/js/3.ced7367e.chunk.js.map",
+    "index.html": "/limiter-audio-synth-demo/index.html",
+    "static/css/main.bea227b9.chunk.css.map": "/limiter-audio-synth-demo/static/css/main.bea227b9.chunk.css.map",
+    "static/js/2.2f6b3048.chunk.js.LICENSE.txt": "/limiter-audio-synth-demo/static/js/2.2f6b3048.chunk.js.LICENSE.txt",
+    "static/media/rack.scss": "/limiter-audio-synth-demo/static/media/wood_texture.d7827e4f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fcc45eec.js",
+    "static/js/2.2f6b3048.chunk.js",
+    "static/css/main.bea227b9.chunk.css",
+    "static/js/main.d925c3e0.chunk.js"
+  ]
+}
