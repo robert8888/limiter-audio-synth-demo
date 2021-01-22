@@ -1,10 +1,10 @@
-@import "./src/css/general.scss";
-
+@import "./src/css/common.scss";
+@import "./../Switch/switch.scss";
 
 .c{
     &-piano{
         @include bg-wood();
-        padding: 50px 40px 20px 40px;
+        padding: 0 40px 20px 40px;
         border-top: 5px solid rgba(#000, .8);
         border-radius: 0 0 10px 10px;
         position: relative;
@@ -21,6 +21,45 @@
         &::after{
             left: unset;
             right: 0;
+        }
+        &__board{
+            height: 50px;
+            padding: 5px 0;
+        }
+        &__panel{
+            @include border-metal();
+            @include bg-metal();
+            width: max-content;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            float: right;
+            padding: 0 10px;
+            &__button{
+                @include thumb-appearance(silver);
+                border-radius: 5px;
+                &:first-of-type{
+                    margin: 10px;
+                }
+            }
+            &__img{
+                width: 50px;
+                height: 50px;
+                &__wrapper{
+               //     @include thumb-appearance(silver);
+         
+                }
+            }
+        }
+
+        &__badge{
+            float: left;
+            @include thumb-appearance(rgb(100, 100, 100));
+            border-radius: 2px;
+            padding: 10px;
+            font-style: italic;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
         &__container{

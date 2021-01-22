@@ -4,7 +4,8 @@ import {
     Switch,
     Route
 } from "react-router-dom"
-
+import Home from "./home/Home";
+import Documentation from "./docs/Documentation";
 import Rack from './rack/Rack';
 
 export default function Router(){
@@ -12,12 +13,16 @@ export default function Router(){
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/docs" exact>
-                    {/* <Docs/> */}
+                <Route path="/documentation" exact>
+                    <Documentation/>
+                </Route>
+
+                <Route path="/demo-synth">
+                    <Rack/>
                 </Route>
 
                 <Route path="/">
-                    <Rack/>
+                    <Home/>
                 </Route>
             </Switch>
         </BrowserRouter>

@@ -6,7 +6,6 @@ import "./peak-meter.scss"
 
 const PeakMeter = ({
     orientation, 
-    levels = {left: -20, right: 7},
     updateMeter = () =>  ({left: -50, right: -50}),
     start = true, 
     dBonLed = 2, 
@@ -32,7 +31,7 @@ const PeakMeter = ({
             toggleState(leds.current.left[i], size - i <= leftOn);
             toggleState(leds.current.right[i], size - i <= rightOn);
         } 
-    }, [levels, leds, dBonLed, zero, size])
+    }, [leds, dBonLed, zero, size, updateMeter])
 
     const renderLedsThrottled = useMemo(() => throttle(renderLeds, 50), [renderLeds])
 
@@ -53,11 +52,12 @@ const PeakMeter = ({
     }, [renderLoop, start, loop])
 
     useEffect(() => () => loop.current = false, [loop])
-    
+
     return (
         <div className={"c-peak-meter c-peak-meter--" + orientation}>
             {range(size).map((_,index) => 
-                <div className="c-peak-meter__row" key={`led-${index}`}>
+                <div className={"c-peak-meter__row " + (index < size - zero ? "c-peak-meter__row--clipping" : "")} 
+                     key={`led-${index}`}>
                     <div 
                         className="c-peak-meter__led c-peak-meter__led--left" 
                         ref={ref => leds.current.left[index] = ref}/>

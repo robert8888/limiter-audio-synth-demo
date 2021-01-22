@@ -15,6 +15,9 @@ export default class SynthUnitRewire {
         this._blocks[this._composeKey({type: "oscillator", id})] = nodes
         connectInChain([
             nodes.oscillator,
+            nodes.shaper,
+            nodes.reduction,
+            nodes.delay,
             nodes.volume,
             nodes.envelope,
             nodes.output
@@ -94,5 +97,20 @@ export default class SynthUnitRewire {
     reConnection(mode){
         this.disconnect();
         this.buildConnection(mode);
+    }
+
+    disconnectAll(){
+        const getAllNodes = () => {
+            const nodes = [];
+            Object.values(this._blocks).forEach(part => nodes.push(Object.values(part)))
+            return nodes.flat();
+        }
+
+        getAllNodes().forEach(node => {
+            if(node instanceof OscillatorNode){
+                node.stop(0)
+            }
+            node.disconnect();
+        })
     }
 }

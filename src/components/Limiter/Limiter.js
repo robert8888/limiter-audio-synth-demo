@@ -5,7 +5,7 @@ import React from "react";
 import "./limiter.scss"
 
 const Limiter = () => {
-    const {setLimiterParam, getRange} = useLimiter();
+    const {setLimiterParam} = useLimiter();
 
     return (
         <div className="c-limiter"> 
@@ -15,14 +15,14 @@ const Limiter = () => {
                     <Knob title="thresh"  
                           from={-20} 
                           to={0} 
-                          value={-2} 
+                          value={-4} 
                           onChange={setLimiterParam.bind(null, "threshold")}/>
                 </div>
                 <div className="c-limiter__knob">
                     <Knob title="attack" 
                           from={0} 
-                          to={0.4}
-                          value={0} 
+                          to={0.3}
+                          value={0.005} 
                           fixed={3}
                           onChange={setLimiterParam.bind(null, "attack")}/>
                 </div>
@@ -30,7 +30,7 @@ const Limiter = () => {
                     <Knob title="release" 
                           from={0} 
                           to={.5}
-                          value={0.05}
+                          value={0.15}
                           onChange={setLimiterParam.bind(null, "release")} 
                           fixed={3} />
                 </div>

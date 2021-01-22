@@ -45,6 +45,7 @@
         flex-direction: column;
         max-width: 50px;
         margin: 0 auto;
+        height: calc(100% - 20px);
         #{$self}__row{
             width: 100%;
             justify-content: space-between;
@@ -74,10 +75,21 @@
         }
     }
 
+
+    $self: &;
     &__row{
         flex: 1;
         display: flex;
         margin: 1px;
+        &--clipping{
+            @debug #{self}__led;
+            #{$self}__led{
+                box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 1px 1px;
+                &::after{
+                    box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 7px 1px, inset #991919 0 -1px 9px, rgba(255, 0, 0, 0.897) 0 1px 1px;
+                }
+            }
+        }
     }
 
     &__led{
@@ -99,17 +111,20 @@
         &--on::after{
             opacity: 1;
         }
+
     }
-    @for $i from 0 to $zeroLevel{
-        $self: &;
-        &__row:nth-of-type(#{$i}){
-            #{$self}__led{
-                box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 1px 1px;
-                &::after{
-                    box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 7px 1px, inset #991919 0 -1px 9px, rgba(255, 0, 0, 0.897) 0 1px 1px;
-                }
-            }
-        }
-    }
+
+    // @for $i from 0 to $zeroLevel{
+    //     $self: &;
+    //     &__row:nth-of-type(#{$i}){
+    //         #{$self}__led{
+    //             box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 1px 1px;
+    //             &::after{
+    //                 box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 7px 1px, inset #991919 0 -1px 9px, rgba(255, 0, 0, 0.897) 0 1px 1px;
+    //             }
+    //         }
+    //     }
+    // }
+
 
 }

@@ -89,7 +89,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         font-weight: 900;
-        font-size: 1.3em;
+        font-size: 1.2em;
         stroke: var(--bd-color);
         color: var(--bd-color);
         fill: var(--bd-color);
@@ -97,6 +97,7 @@
         transition: opacity .4s ease;
         pointer-events: none;
         user-select: none;
+        font-family: 'Roboto Mono', monospace;
 
     }
     &__dot{
@@ -241,6 +242,7 @@
         text{
             fill: rgba(#fff, 0.7);
             stroke-width: 0;
+            font-family: 'Roboto Mono', monospace;
         }
         font-family: 'Roboto Mono', monospace;
 

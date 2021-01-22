@@ -5,22 +5,30 @@ import SynthModeBuilder from "./SynthModeBuilder";
 import SynthUnitBuilder from "./SynthUnitBuilder";
 
 export default class SynthBuilder{
-    constructor(context, UnitBuilder = SynthUnitBuilder){
+    constructor(context, unitBuilderOptions = {}){
         this.context = context;
-        this.unitBuilder = new UnitBuilder(this.context);
+        this.unitBuilderOptions = unitBuilderOptions;
+        const UnitBuilder = unitBuilderOptions.unitBuilderConstructor || SynthUnitBuilder
+        this.unitBuilder = new UnitBuilder(this.context, unitBuilderOptions);
     }
 
-    createSynth(numberOfUnits = 48){
+    createSynth(){
         const state = {
             oscillator: {
                 "0": {
                     waveType: "SAW",
                     envelope: new Envelope(),
+                    transpose: 0,
+                    detune: 0,
+                    shift: 0,
                     vol: 1
                 }, 
                 "1": {
                     waveType: "SAW",
                     envelope: new Envelope(),
+                    transpose: 0,
+                    detune: 0,
+                    shift: 0,
                     vol: 1
                 }, 
             },
@@ -38,18 +46,32 @@ export default class SynthBuilder{
         }
         const output = this.context.createGain();
 
-        const units = this._unitFactory(numberOfUnits, state, output)
-        
-        return new Synth(output, units, state);
+        const synth = new Synth(output, state);
+
+        if(this.unitBuilderOptions.mode === "once"){
+            synth.unitFactory = this._createUnit.bind(this, state, output);
+        } else {
+            const numberOfUnits = this.unitBuilderOptions.numberOfUnits || 12;
+            const units = this._unitFactory(numberOfUnits, state, output);
+            synth.units = units;
+        }
+
+        return synth;
     }
 
     _unitFactory(numberOfUnits, state, output){
         return range(numberOfUnits).map(() => {
-            const unit = this.unitBuilder.create(state);
-            unit.connect(output);
-            return unit;
+            return this._createUnit(state, output)
         })
     }
+
+    _createUnit(state, output){
+        const unit = this.unitBuilder.create(state);
+        unit.connect(output);
+        return unit;
+    }
+
+    
 }
 
   

@@ -21,17 +21,17 @@ export default function useMidi(){
     }, [midiTranslator, noteOn, noteOff])
 
     useEffect(() => {
+        if(!navigator.requestMIDIAccess) return;
         let inputs = [];
         navigator.requestMIDIAccess().then((midiAccess) => {
             inputs = Array.from(midiAccess.inputs);
-            console.log(inputs)
             inputs.forEach(([id, input]) => input.onmidimessage = onInputMessage)
         })
 
         return () => {
             inputs.forEach(([id, input]) => input.onmidimessage = null)
         }
-    }, [])
+    }, [onInputMessage])
 
 
     return {noteOn, noteOff} 

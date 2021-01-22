@@ -1,22 +1,16 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 
-export default function useSynthCallbackRegistry(eventNames, synth){
+export default function useSynthCallbackRegistry(synth){
     const listenerRegistry = useRef({})
 
     const registerListener = useCallback((eventName, id,  callback) => {
         id = id ?? "default";
         listenerRegistry.current[`${eventName}-${id}`] = callback;
-    }, [listenerRegistry])
-
-    useEffect(() => {
-        eventNames.forEach(eventName => {
-            synth.on(eventName,(id, ...args) => {
-                listenerRegistry.current[`${eventName}-${id}`]?.(...args);
-                listenerRegistry.current[`${eventName}-${"default"}`]?.(id, ...args)
-            })
+        synth.on(eventName,(id, ...args) => {
+            listenerRegistry.current[`${eventName}-${id}`]?.(...args);
+            listenerRegistry.current[`${eventName}-${"default"}`]?.(id, ...args)
         })
-
-    }, [eventNames, listenerRegistry, synth])   
+    }, [listenerRegistry, synth])
 
     return registerListener;
 }

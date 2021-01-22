@@ -5,29 +5,36 @@ import GainNodeMap from "./Maps/GainNodeMap";
 import OscillatorNodeMap from "./Maps/OscillatorNodeMap";
 import SynthUnit from "./SynthUnit";
 import SynthUnitRewire from "./SynthUnitRewire";
+import "./../WaveShapers/PulsShaper";
 
 export default class SynthUnitBuilder {
-    constructor(context){
+    constructor(context,{ mode }){
         this.context = context;
+        this._once = mode === "once"
     }
 
     set rewirderConstructor(rewirder){
         this._rewirderConstructor = rewirder;
     }
 
-    _createOscillatorChannel(id){
+    _createOscillatorChannel(){
         const nodes =  {
             oscillator: this.context.createOscillator(),
+            shaper: this.context.createPulseShaper(),
+            reduction: this.context.createGain(),
+            delay: this.context.createDelay(),
             volume: this.context.createGain(),
             envelope: this.context.createGain(),
             output: this.context.createGain(),
         }
         nodes.oscillator.type = "sine";
         nodes.envelope.gain.value = 0;
+        nodes.reduction.gain.value = .5;
+        nodes.oscillator.start(0)
         return nodes;
     }
 
-    _createFilterChannel(id){
+    _createFilterChannel(){
         const nodes  = {
             input: this.context.createGain(),
             filter: this.context.createBiquadFilter(),
@@ -70,17 +77,22 @@ export default class SynthUnitBuilder {
 
         rewirder.buildConnection(synthState.mode);
 
-        const unit = new SynthUnit(this.context, synthState);
+        const unit = new SynthUnit(this.context, synthState, this._once);
         unit.rewirder = rewirder;
 
         const envelopersMap = new EnveloperMap();
         const oscillatorMap = new OscillatorNodeMap();
+        const pulseShaperMap = new AudioNodeMap();
+        const delaysMap = new AudioNodeMap();
         const volumeNodeMap = new GainNodeMap();
         const filterNodeMap = new AudioNodeMap();
 
         oscillatorChannels.forEach((oscillatorChannel, id) => {
             oscillatorMap.set(id, oscillatorChannel.oscillator);
             volumeNodeMap.set(id, oscillatorChannel.volume);
+            delaysMap.set(id, oscillatorChannel.delay);
+            pulseShaperMap.set(id, oscillatorChannel.shaper);
+
             const enveloper = new Enveloper(this.context, oscillatorChannel.envelope, "gain");
             envelopersMap.set({type: "oscillator", id}, enveloper)
         })
@@ -92,7 +104,9 @@ export default class SynthUnitBuilder {
         })
         
         unit.envelopers = envelopersMap;
+        unit.oscillatorsDelay = delaysMap
         unit.oscillators = oscillatorMap;
+        unit.oscillatorsPulseShaper = pulseShaperMap;
         unit.volume = volumeNodeMap;
         unit.filters = filterNodeMap;
         
@@ -101,4 +115,5 @@ export default class SynthUnitBuilder {
 
         return unit;
     }
+
 }

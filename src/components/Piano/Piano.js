@@ -2,44 +2,38 @@ import useSynthInput from "audio/useSynthInput";
 import React, { useCallback,  useEffect,  useLayoutEffect,  useRef} from "react";
 import range from "utils/range";
 import Key from "./Key";
-import "./piano.scss"
+import keyboardSvg from "assets/keyboard.svg"
+import "./piano.scss";
+import toRange from "utils/toRange";
 
-const keyboardShortcut = {
-    "z": 40,
-    "s": 41,
-    "x": 42, 
-    "d": 43, 
-    "c": 44, 
-    "v": 45, 
-    "g": 46, 
-    "b": 47, 
-    "h": 48, 
-    "n": 49, 
-    "j": 50, 
-    "m": 51, 
-    ",": 52
-}
+
+const keyboardShortcut = [
+    "z","s","x", "d", "c", "v", "g", "b", "h", "n", "j", "m", ",",
+]
 
 const Piano = () => {
     const {noteOn, noteOff} = useSynthInput();
     const keyboardContainer = useRef();
     const keys = useRef({}) 
+    const octave = useRef(3)
+
     //keyboard shortcuts mapping
     useEffect(() => {
         const onKeyDown = e =>{
             const key = e.key.toLowerCase();
-            const note = keyboardShortcut[key];
-            if(!note || e.repeat) return;
-
+            const index = keyboardShortcut.indexOf(key);
+            if(index === -1 || e.repeat) return;
+            const note = 4 + octave.current * 12 + index;
             noteOn(note, 1);
             keys.current[note].classList.add("c-piano__key--active")
         }
 
         const onKeyUp = e => {
             const key = e.key.toLowerCase();
-            const note = keyboardShortcut[key];
-            if(!note) return;
-    
+            const index = keyboardShortcut.indexOf(key);
+            if(index === -1) return;
+
+            const note = 4 + octave.current * 12 + index;
             noteOff(note);
             keys.current[note].classList.remove("c-piano__key--active")
         }
@@ -50,7 +44,7 @@ const Piano = () => {
             window.removeEventListener("keydown", onKeyDown)
             window.removeEventListener("keyup", onKeyUp)
         }
-    }, [noteOn, noteOff])
+    }, [noteOn, noteOff, octave])
 
     const onKeyDown = useCallback((note, force) => {
         noteOn(note, force)
@@ -88,8 +82,27 @@ const Piano = () => {
         keyboardContainer.current.scrollLeft = 1350;
     }, [keyboardContainer]) 
 
+    const changeOctave = useCallback((dir) =>{
+        dir = dir === "up" ? 1 : -1;
+        octave.current = toRange(octave.current + dir, 0 , 5)
+    }, [octave])
+
     return (
         <div className="c-piano bg-wood">
+            <div className="c-piano__board">
+                <span className="c-piano__badge">Nightingale  9000</span>
+                <div className="c-piano__panel">
+                    <div className="c-piano__panel__img__wrapper">
+                        <img className="c-piano__panel__img" src={keyboardSvg} alt="keyboard"/>
+                    </div>
+                    <button className="c-piano__panel__button" onClick={changeOctave.bind(null, "up")}>
+                        {"\u25B2"}
+                    </button>
+                    <button className="c-piano__panel__button" onClick={changeOctave.bind(null, "down")}>
+                        {"\u25BC"}
+                    </button>
+                </div>
+            </div>
             <div className={"c-piano__container"} ref={keyboardContainer}>
                 <div className="c-piano__wrapper" onPointerDown={onPointerDown}>
                     {range(1,88).map((note) => 

@@ -12,7 +12,8 @@
     --slider: rgb(39, 39, 39);
     --thumb: #{$color-8};
     --thumb-hover: #{$color-7};
-
+    position: relative;
+    height: var(--height);
     &, & * {
         user-select: none;
         cursor: pointer;
@@ -43,7 +44,7 @@
         text-align: center;
         white-space: nowrap;
         font-family:  'Roboto Mono', monospace;
-        font-size: .8em;
+        font-size: .7em;
         text-transform: uppercase;
     }
 }

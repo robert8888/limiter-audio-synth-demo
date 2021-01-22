@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import "./multi-switch.scss";
 
 const MultiSwitch = ({
@@ -36,7 +36,7 @@ const MultiSwitch = ({
                 setIndex(value)
                 return
             }
-            let index = items.findIndex(item => item.value = value);
+            let index = items.findIndex(item => item.value === value);
             index = index === -1 ? 0 : index;
             setIndex(index);
         })

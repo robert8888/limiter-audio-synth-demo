@@ -4,14 +4,14 @@ import useSynthCallbackRegistry from "./useSynthCallbackRegistry";
 
 export default function useSynthMode(){
     const {synth} = useAudioContext()
-    const registerListener = useSynthCallbackRegistry(["modeChange"], synth);
+    const registerListener = useSynthCallbackRegistry(synth);
 
 
     const setSynthMode = useCallback((modeName) => {
         const modes = synth.getAvailableSynthModes();
         if(!modes.includes(modeName)) return;
         synth.setSynthMode(modeName); 
-    }, [])
+    }, [synth])
 
     const getModesList = useCallback(() => {
         return synth.getAvailableSynthModes();

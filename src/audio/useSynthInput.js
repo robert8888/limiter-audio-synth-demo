@@ -15,7 +15,7 @@ export default function useSynthInput(){
             noteOn.callback = () => {};
             noteOff.callback = () => {};
         }
-   }, [])
+   }, [synth, noteOn, noteOff])
 
 
     return {

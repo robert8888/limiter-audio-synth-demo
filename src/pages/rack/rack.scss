@@ -1,4 +1,4 @@
-@import "./src/css/general.scss";
+@import "./src/css/common.scss";
 
 .l{
     &-rack{
@@ -19,7 +19,7 @@
             border-radius: 5px;
         }
         &__row{
-            @include bg-letter();
+            @include bg-leather();
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
@@ -31,12 +31,18 @@
                 }
             }
         };
-        &__group{
+        &__group--visualization{
             flex: 100 1 300px;
             max-width: 700px;
             min-width: 0;
-            margin-bottom: 10px;
-
+            display: flex;
+            flex-direction: column;
+            @media screen and (max-width : 1080px) {
+                margin-bottom: 10px;
+            }
+            .c-spectrum{
+                flex: 1 0 150px;
+            }
         }
 
         &__container{
@@ -48,7 +54,7 @@
         &__grid{
             margin: 2px 0;
             display: grid;
-            grid-template-rows: 1fr 2fr;
+            grid-template-rows: 1fr 300px;
             grid-template-columns: auto auto 85px;
             grid-template-areas: "limiter limiter mode"
                                   "mixer synth synth";
@@ -69,7 +75,11 @@
                 transform: translateY(-5px);
             }
         }
+        &__piano{
+            margin-bottom: -50px;
+        }
     }
+
 }
 
 .c-group{
@@ -86,5 +96,26 @@
         text-transform: uppercase;
         font-family: 'Roboto Mono', monospace;
         font-size: .8em;
+    }
+}
+
+.c-introduction-modal{
+    font-size: 1em;
+    &__list{
+        list-style-type: square;
+        padding-left: 20px;
+    }
+    &__list-item{
+        margin: 10px 0;
+    }
+    &__title{
+        font-size: 1.4em;
+        margin: 20px 0;
+    }
+    &__subtitle{
+        font-size: 1.1em;
+        font-weight: 500;
+        margin: 20px 0;
+        font-style: italic;
     }
 }

@@ -1,5 +1,6 @@
 export default function classes(names){
     return names.reduce((acc, current) => {
+        if(!current) return acc;
         if(typeof current === "string"){
             return acc + " " + current;
         } else if(current instanceof Array){

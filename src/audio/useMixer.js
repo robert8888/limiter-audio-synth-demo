@@ -13,18 +13,23 @@ export default function useMixer(){
         }
     }, [mixer])
 
-    const getByteTimeDomainData = useCallback((width) => {
-        return mixer.getByteTimeDomainData("limited", width);
-    }, [])
+    const getByteTimeDomainData = useCallback((width, buffer) => {
+        return mixer.getByteTimeDomainData("limited", width, buffer);
+    }, [mixer])
 
-    const getFFTSize = useCallback(() => {
-        return mixer.getFFTSize("limited")
-    }, [])
+    const getByteFrequencyData = useCallback((id = "limited") => {
+        return mixer.getByteFrequencyData(id);
+    }, [mixer])
+
+    const getFFTSize = useCallback((id = "limited") => {
+        return mixer.getFFTSize(id)
+    }, [mixer])
 
     return {
         getLevelMeter, 
         setVolume: mixer.setVolume.bind(mixer),
         getByteTimeDomainData,
+        getByteFrequencyData,
         getFFTSize,
     }
 }

@@ -18,7 +18,7 @@ const ADSR = ({onChange = () => {}, name, update, defaultEnvelope = new Envelope
             [param]:value,
         }))
         setState(state => state)
-    }, [state, setState])
+    }, [state, setState, onChange])
 
     useEffect(() =>{
         if(typeof update !== "function") return;

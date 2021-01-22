@@ -1,17 +1,24 @@
 import EventTarget from "utils/EventTarget";
-import { getNoteFreq } from "utils/noteTools";
+import toRange from "utils/toRange";
 import SynthModeBuilder from "./SynthModeBuilder";
 
 
 export default class Synth extends EventTarget{
     _running = {};
     
-    constructor(output, units, state){
+    constructor(output, state){
         super();
         this._output = output;
-        this._units = units;
         this._state = state;
 
+    }
+
+    set units(units){
+        this._units = units;
+    }
+
+    set unitFactory(factoryMethod){
+        this._getUnit = factoryMethod;
     }
 
     get output(){
@@ -27,12 +34,16 @@ export default class Synth extends EventTarget{
     }
 
     noteOn(note, force){
-        const unit = this._units.find(unit => !unit.isBusy);
+        let unit;
+        if(this._units){
+            unit = this._units.find(unit => !unit.isBusy);
+        } else {
+            unit = this._getUnit();
+        }
 
         if(!unit) return;
         
-        const freq = getNoteFreq(note);
-        unit.start(freq, force);
+        unit.start(note, force);
         if(this._running[note] && this._running[note].length){
             this._running[note].push(unit);
         } else {
@@ -53,11 +64,11 @@ export default class Synth extends EventTarget{
 
     get oscillatorIds(){
 
-      return this._units[0].oscillatorIds;
+      return [0,1]///this._units[0].oscillatorIds;
     }
 
     get filterIds(){
-        return this._units[0].filterIds;
+        return [0]//this._units[0].filterIds;
     }
 
     getAvailableSynthModes(){
@@ -90,6 +101,28 @@ export default class Synth extends EventTarget{
         this._state.oscillator[id].waveType = waveTypeName;
         this.fire("oscillatorWaveChange", id, waveTypeName)
     }
+
+    setOscillatorTranspose(id, transpose){
+        if(this._state.oscillator[id].transpose === transpose) return;
+
+        this._state.oscillator[id].transpose = transpose;
+        this.fire("oscillatorTransposeChange", id, transpose)
+    }
+
+    setOscillatorDetune(id, detune){
+        if(this._state.oscillator[id].detune === detune) return;
+
+        this._state.oscillator[id].detune = detune;
+        this.fire("oscillatorDetuneChange", id, detune)
+    }
+
+    setOscillatorShift(id, shift){
+        shift = toRange(shift, -1, 1);
+        if(this._state.oscillator[id].shift === shift) return;
+
+        this._state.oscillator[id].shift = shift;
+        this.fire("oscillatorShiftChange", id, shift)
+    }    
 
     setFilterEnvelope(id, param, value){
         if(this._state.filter[id].envelope[param] === value) return;

@@ -4,6 +4,7 @@ import { getLevelMeter } from "utils/getLevelMeter";
 export default class Mixer{
     chain = [];
     _analysers;
+    _intervalCallbacks = [];
 
     constructor(context){
         this.context = context;
@@ -11,6 +12,11 @@ export default class Mixer{
         node.connect(context.destination);
         this.chain.push({name: "destination", input: node, output: node})
         this._node = node;
+        this._intervalHandler = setInterval(this._intervalTick.bind(this), 16)
+    }
+
+    _intervalTick(){
+        this._intervalCallbacks.forEach((callback) => callback())
     }
 
     set analyserNodes(analyserMap){
@@ -40,24 +46,57 @@ export default class Mixer{
         return Array.from(this._analysers.keys())
     }
 
-    getMeterLevel(id){
-        const analyserNode = this._analysers.get(id);
-
-        if(!analyserNode) return {avg: 0, peak: 0}
-
-        const sampleBuffer = this._analysersBuffers[id]
-        analyserNode.getFloatTimeDomainData(sampleBuffer)
-
-        if(!sampleBuffer) return {avg: 0, peak: 0}
-
-        return getLevelMeter(sampleBuffer);
+    _getMeterLevel(analyser, buffer, id){
+        analyser.getFloatTimeDomainData(buffer)
+        this._meters[id] = getLevelMeter(buffer);
     }
 
-    getByteTimeDomainData(id, width){
-        const analyserNode = this._analysers.get(id);
-        const data = new Uint8Array(width);
-        analyserNode.getByteTimeDomainData(data);
-        return data;
+    _getByteTimeDomainData(analyserNode, id){
+        analyserNode.getByteTimeDomainData( this._byteTime[id]);
+    }
+
+    _getByteFrequencyData(analyserNode, buffer){
+        analyserNode.getByteFrequencyData(buffer);
+    }
+
+    getMeterLevel(id){
+        if(!this._meters || !this._meters[id]){
+            this._meters = {};
+            const analyser = this._analysers.get(id);
+            const buffer = this._analysersBuffers[id];
+            this._intervalCallbacks.push(
+                this._getMeterLevel.bind(this, analyser, buffer, id)
+            )
+        }
+
+        return this._meters[id] || {peak: -100, avg: -100};
+    }
+
+    getByteTimeDomainData(id, size){
+        if(!this._byteTime || !this._byteTime[id]){
+            this._byteTime = {};
+            this._byteTime[id] = new Uint8Array(size);
+            const analyserNode = this._analysers.get(id);
+            this._intervalCallbacks.push(
+                this._getByteTimeDomainData.bind(this, analyserNode, id)
+            )
+
+        }
+
+        return this._byteTime[id];
+    }
+
+    getByteFrequencyData(id){
+        if(!this._byteFreq || !this._byteFreq[id]){
+            this._byteFreq = {};
+            const analyserNode = this._analysers.get(id);
+            this._byteFreq[id] = new Uint8Array(analyserNode?.frequencyBinCount || 0);
+            this._intervalCallbacks.push(
+                this._getByteFrequencyData.bind(this, analyserNode, this._byteFreq[id])
+            )
+        }
+ 
+        return this._byteFreq[id];
     }
 
     getFFTSize(id){

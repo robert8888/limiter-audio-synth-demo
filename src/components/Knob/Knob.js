@@ -16,6 +16,7 @@ const Knob = ({
     fixed = 1,
     format = value => value,
     symmetric: isSymmetric = false,
+    quantize = null,
 }) => {
     const [localValue, setLocalValue] = useState(.5);
     const knob = useRef();
@@ -23,9 +24,13 @@ const Knob = ({
 
     const scale = useCallback((value) => {
         const range = Math.max(from, to) - Math.min(from, to);
-        const scaled = range * value + Math.min(from, to);
-        return scaled.toFixed(fixed);
-    }, [from, to, fixed])
+        value = range * value + Math.min(from, to);
+        if(quantize){
+            value = Math.floor(value / quantize) * quantize;
+        }
+
+        return value.toFixed(fixed);
+    }, [from, to, fixed, quantize])
 
     const deScale = useCallback((value) => {
         const range = Math.max(from, to) - Math.min(from, to);
@@ -51,18 +56,22 @@ const Knob = ({
 
         const onPointerMove = e => {
             const clientY = e.clientY || (e.touches && e.touches[0].clientY )|| 0;
-            updateValue(startValue + (startY - clientY) / response)
+            updateValue(startValue + (startY - clientY) / response);
+            if(e.cancelable)
+                e.preventDefault();
         }
 
         const removeEvents = e => {
-            window.removeEventListener("mousemove", onPointerMove)
+            window.removeEventListener("mousemove", onPointerMove, {passive: false})
+            window.removeEventListener("touchmove", onPointerMove, {passive: false})
             window.removeEventListener("mouseup", removeEvents);
             window.removeEventListener("touchend", removeEvents);
             window.removeEventListener("mouseleave", removeEvents);
             setIsActive(false);
         }
 
-        window.addEventListener("mousemove", onPointerMove)
+        window.addEventListener("mousemove", onPointerMove, {passive: false})
+        window.addEventListener("touchmove", onPointerMove, {passive: false})
         window.addEventListener("mouseup", removeEvents);
         window.addEventListener("touchend", removeEvents);
         window.addEventListener("mouseleave", removeEvents);
@@ -85,7 +94,7 @@ const Knob = ({
     ])
 
     return (
-        <div className={containerClassNames}>
+        <div className={containerClassNames} onTouchMove={() => false}>
             <div className="c-knob__container" ref={knob} onPointerDown={onPointerDown}>
                 <div className="c-knob__disk">
                     <div className="c-knob__thumb"/>

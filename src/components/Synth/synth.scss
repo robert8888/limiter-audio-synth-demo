@@ -5,6 +5,9 @@
 
     display: flex;
     justify-content: flex-end;
+    text{
+        font-family: "Roboto Mono";
+    }
     &__oscillator{
         display: flex;
         flex-direction: column;
@@ -21,6 +24,10 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 10px;
+        margin-bottom: 5px;
+        &--filter-type{
+            height: 50px;
+        }
     }
     &__filter{
         display: flex;
@@ -32,8 +39,8 @@
     }
     &__oscillator{
         &__knob{
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
         }
     }
 }

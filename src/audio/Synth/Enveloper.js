@@ -31,17 +31,21 @@ export default class Enveloper{
     async start(envelope = new Envelope()){
         this._currentEnvelope = envelope;
         this._breakFlag = false;
-
-        this.param.setValueAtTime(this.from, this.context.currentTime);
+        this.param.setValueAtTime(this.from, this.context.currentTime)
         this.param.linearRampToValueAtTime(this.to, this.context.currentTime + envelope.attack / 1000);
         await wait(envelope.attack);
 
         if(this._breakFlag) return
         const sustainLevel = this.from + (this.to - this.from) * envelope.sustain;
+        if(this.param.cancelAndHoldAtTime){
+            this.param.cancelAndHoldAtTime(this.context.currentTime);
+        } else {
+            this.param.cancelScheduledValues(this.context.currentTime);
+        }
         this.param.linearRampToValueAtTime(sustainLevel, this.context.currentTime + envelope.decay / 1000);
 
         await wait(envelope.decay);
-        
+
         return true;
 
     }
@@ -49,8 +53,12 @@ export default class Enveloper{
     async stop(){
         this._breakFlag = true;
 
-        this.param.cancelAndHoldAtTime(this.context.currentTime);
-        this.param.exponentialRampToValueAtTime(this.from || 0.00001, this.context.currentTime + this._currentEnvelope.release / 1000);
+        if(this.param.cancelAndHoldAtTime){
+            this.param.cancelAndHoldAtTime(this.context.currentTime);
+        } else {
+            this.param.cancelScheduledValues(this.context.currentTime);
+        }
+        this.param.linearRampToValueAtTime(this.from || 0.00001, this.context.currentTime + this._currentEnvelope.release / 1000);
 
         await wait(this._currentEnvelope.release);
 

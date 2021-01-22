@@ -6,7 +6,7 @@ export default function useLimiter(){
 
     const setLimiterParam = useCallback((param, value) =>{
         limiter.setParam(param, value)
-    })
+    }, [limiter])
 
     return {
         setLimiterParam,

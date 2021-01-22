@@ -16,10 +16,10 @@ const Master = () => {
                     <Knob title="Gain" from={0} to={2} value={1} onChange={setVolume}/>
                 </div>
                 <div className="c-mixer__peak-meter c-mixer__peak-meter--master">
-                    <PeakMeter  text="LIMITED" updateMeter={getLevelMeter.bind(null, "limited")} orientation="vertical"/>
+                    <PeakMeter size={22} zero={16} text="LIMITED" updateMeter={getLevelMeter.bind(null, "limited")} orientation="vertical"/>
                 </div>
                 <div className="c-mixer__peak-meter c-mixer__peak-meter--limit">
-                    <PeakMeter text="MASTER" orientation="vertical" updateMeter={getLevelMeter.bind(null, "master")}/>
+                    <PeakMeter size={22} zero={16} zbcc text="MASTER" orientation="vertical" updateMeter={getLevelMeter.bind(null, "master")}/>
                 </div>
             </div>
         </div> 
