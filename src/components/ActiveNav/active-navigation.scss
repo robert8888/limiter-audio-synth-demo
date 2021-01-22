@@ -18,6 +18,7 @@
         flex-direction: column;
         border-right: 1px solid #00000055;
         background: #FFF1;
+        overflow: hidden;
         &__title{
             color: $text-color;
             margin: 30px 0;
@@ -27,6 +28,7 @@
         }
         &__nav{
             overflow-y: auto;
+            overflow-x: hidden;
         }
     }
 
