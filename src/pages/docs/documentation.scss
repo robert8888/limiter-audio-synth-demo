@@ -1,0 +1,29 @@
+@import "src/css/colors.scss";
+@import "src/components/Layout/layout.scss";
+
+.content{
+    color: $text-color;
+    font-size: 1.3em;
+    margin-top: 25px;
+    padding-top: 50px;
+    line-height: 25px;
+    &:last-of-type{
+        margin-bottom: 250px;
+    }
+    &__title{
+        font-size: 1.4em;
+        line-height: 1.5em;
+        margin: 20px 0;
+    }
+    &__text{
+        margin: 20px 0;
+    }
+    b {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    @media screen and (max-width: map-get($grid-breakpoints, "md")){
+        font-size: 1em;
+    }
+}

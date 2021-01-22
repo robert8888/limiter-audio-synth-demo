@@ -1,0 +1,40 @@
+@import "src/css/colors.scss";
+
+.c-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    min-width: 300px;
+    min-height: 200px;
+    max-width: 90%;
+    max-height: 90%;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 0 0 100vh #0009;
+    background: $primary-bg;
+    &__btn{
+        border: black;
+        border-radius: 2px;
+        background: darken($primary-bg, 15%);
+        padding: 6px 9px;
+        color: $text-color;
+
+        &--close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        &--confirm{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 15px;
+            font-size: 1.2em;
+        }
+    }
+    &__container{
+        margin: 30px 30px 30px 30px;
+    }
+}

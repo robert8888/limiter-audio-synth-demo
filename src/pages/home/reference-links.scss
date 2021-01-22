@@ -1,0 +1,17 @@
+@import "./src/css/common.scss";
+
+.a-btn{
+    @include a-btn();
+    letter-spacing: 1px;
+    margin: 15px;
+    &--npm{
+        outline-color: #F84165;
+    }
+    &--github{
+        outline-color: #5e9afa;
+    }
+
+    &__container{
+        flex-wrap: wrap;
+    }
+}

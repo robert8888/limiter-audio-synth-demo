@@ -1,0 +1,71 @@
+@import "./colors.scss";
+
+@mixin bg-leather(){
+    background-size: 200px;
+    background-image: url("/assets/black_leather_texture.jpg"); 
+}
+
+@mixin bg-wood($aspect: "vertical") {
+    background-repeat: repeat;
+    background-image: url("/assets/wood_texture.jpg");
+    @if $aspect == "horizontal" {
+        background-size: cover;
+        background-image: url("/assets/wood_texture-horizontal.jpg");
+    }
+}
+
+
+@mixin bg-metal() {
+    background-size: 200px;
+    background-image: url("/assets/black_metal_texture.jpg");
+    background-repeat: repeat;
+}
+
+
+@mixin border-metal() {
+    border-radius: 3px;
+    box-shadow: inset grey 0  0px 0px 1px,
+     inset rgba(#FFF, .8) 0 0 2px 1px,
+     rgba( #FFF, .7) 0  0px 2px 1px;
+}
+
+@mixin a-btn(){
+    border: 2px solid darken($secondary-bg, 10%);
+    border-radius: 2px;
+    padding: 10px 20px;
+    color: #ffffffaa;
+    cursor: pointer;
+    outline-offset: -2px;
+    transition: outline-offset .5s;
+    outline-style: solid;
+    outline-width: 0;
+    outline-color: transparent;
+    white-space: nowrap;
+    text-decoration: none;
+    &:active:hover,
+    &:hover{
+        color: #ffffffEE;
+        outline-offset: -6px;
+        outline-width: 2px;
+    }
+
+    &__img{
+        height: 1em;
+        line-height: 1em;
+        vertical-align: middle;
+        margin-top: -4px;
+        margin-left: 5px;
+        filter:opacity(.5)
+    }
+}
+
+
+@mixin pseudo-absolute() {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

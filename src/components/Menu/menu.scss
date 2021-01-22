@@ -1,0 +1,44 @@
+@import "src/css/common.scss";
+
+.c-menu{
+    display: inline-block;
+    margin-bottom: 20px;
+    &__list{
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+    &__item{
+        margin: 0;
+        padding: 0;
+        &:not(:first-of-type){
+            margin: 0 15px;
+        }
+    }
+    &__link{
+        text-decoration: none;
+        min-width: 30px;
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        &::after{
+            @include pseudo-absolute();
+            top: 5px;
+            width: 100%;
+            transform: scale(0, 1);
+            transform-origin: right;
+            border-bottom: 1px solid $text-color;
+            transition: transform 1s;
+        }
+        &:hover::after{
+            transform: scale(1, 1);
+            transform-origin: left;
+        }
+        &:not(:first-of-type)::before{
+            @include pseudo-absolute();
+            content: "\2022";
+            color: $text-color;
+            left: -20px;
+        }
+    }
+}

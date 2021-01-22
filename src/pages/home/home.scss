@@ -1,0 +1,73 @@
+@import "src/css/colors.scss";
+
+.header {
+    display: flex;
+    justify-content: center;
+    &__title{
+        font-size: 4em;
+        line-height: 1.5em;
+        color: $text-color;
+        text-decoration: underline;
+        text-underline-offset: 10px;
+    }
+}
+
+.section{
+    color: $text-color;
+    text-shadow: 0 0 2px black;
+    &__title{
+        font-size: 2em;
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+        &::after{   
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -5px;
+            width: 130%;
+            border-bottom: 2px solid $text-color;
+            box-shadow: 0 0px 2px 0 black;
+        }
+    }
+    &__content{
+        font-size: 1.2em;
+        line-height: 1.5em;
+        letter-spacing: 1px;
+    }
+}
+
+.footer{
+    width: 100%;
+    border-top: 1px solid $text-color;
+    padding-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    color: $text-color;
+    & > * {
+        margin: 0 10px;
+    }
+}
+
+.l-row:not(:first-of-type){
+    margin-top: 50px;
+}
+
+.a-btn{
+    $self:&;
+    &--demo{
+        padding: 15px 30px;
+        outline-color: rgb(201, 96, 96);
+        color:rgb(201, 96, 96);
+    }
+    &:hover{
+        #{$self}__img{
+            filter: none;
+        }
+    }
+    &__img{
+        display: inline;
+        filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(310deg) brightness(80%) contrast(97%);
+    }
+
+}

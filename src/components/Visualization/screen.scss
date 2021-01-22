@@ -1,0 +1,14 @@
+@mixin screen-background(){
+    border: 5px solid rgba(#000, 0.8);
+    border-radius: 10px;
+    box-shadow:
+        0 0 2px 0px gray, 
+        0 0 50px 10px inset  #1c1b11;
+    background-image: 
+       radial-gradient(ellipse at 25% 130%, #c29c45 0%, transparent 25%),
+       radial-gradient(ellipse at 75% 130%, #c29c45 0%, transparent 25%),
+       radial-gradient(ellipse at 25% -30%, #c29c45 0%, transparent 25%),
+       radial-gradient(ellipse at 75% -30%, #c29c45 0%, transparent 25%),
+       radial-gradient(ellipse, #1c1b11, #1f1d10, #221f0e, #25200d, #29220b, #2c240b, #30260a, #33280a, #372b0c, #3a2e0d, #3e310e, #42340f),;
+
+}

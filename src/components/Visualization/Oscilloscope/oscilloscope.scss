@@ -1,0 +1,61 @@
+@import "./src/css/colors.scss";
+@import "./../screen.scss";
+
+.c{
+    &-oscilloscope{
+       display: flex;
+        width: 100%;
+        &__screen{
+            @include screen-background();
+            max-height: 260px;
+            width: 100%;
+            overflow: hidden;
+            padding: 10px;
+            display: flex;
+            position: relative;
+        }
+        &__grid{
+            width: 100%;
+            height: 230px;
+            border: 1px solid $color-2;
+            background-size: 50px 50px;
+            background-image:
+              linear-gradient(to right, grey 1px, transparent 1px),
+              linear-gradient(to bottom, grey 1px, transparent 1px);
+            background-position: center;
+
+            display: grid;
+            &__axis{
+                margin: auto;
+                grid-row: 1;
+                grid-column: 1;
+
+                background-size: 12.5px 12.5px;
+                background-image:
+                    linear-gradient(to right, $color-3 1px, transparent 1px),
+                    linear-gradient(to bottom, $color-3 1px, transparent 1px);
+
+                &--x{
+                    width: 10px;
+                    height: 100%;
+                    background-position: left 5px top;
+
+                }
+                &--y{
+                    width: 100%;
+                    height: 10px;
+                    background-position: left top 5px; 
+                }
+            }
+        }
+
+        &__canvas{
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 10px);
+        }
+
+    }
+}

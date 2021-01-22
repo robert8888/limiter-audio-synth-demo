@@ -1,0 +1,20 @@
+@import "src/css/colors.scss";
+@import "src/components/Layout/layout.scss";
+
+.hljs-comment{
+    color: $primary-bg;
+    margin-top: 10px;
+}
+
+code > span{
+    line-height: 25px;
+}
+
+@media screen and (max-width: map-get($grid-breakpoints, "md")){
+
+    code > span{
+        font-size: .8em;
+        line-height: 20px;
+    }
+    
+}

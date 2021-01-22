@@ -1,0 +1,45 @@
+@import "./src/css/colors.scss";
+@import "./../screen.scss";
+
+.c-spectrum{
+    --padding: 10px;
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    &__screen{
+        @include screen-background();
+        position: relative;
+        flex: 1;
+        &::after{
+            content: "";
+            display: inline;
+            position: absolute;
+            border: 1px solid $color-2;
+            top: var(--padding);
+            left: var(--padding);
+            right: var(--padding);
+            bottom: var(--padding);
+        }
+        &::before{
+            content: "";
+            display: block;
+            position: absolute;
+            top: var(--padding);
+            left: var(--padding);
+            right: var(--padding);
+            bottom: var(--padding);
+            background-size: 50px 30px;
+            background-image:
+              linear-gradient(to right, grey 1px, transparent 1px),
+              linear-gradient(to bottom, grey 1px, transparent 1px);
+            background-position: center bottom 5px;
+        }
+    }
+    &__canvas{
+        position: absolute;
+        top: var(--padding);
+        left: var(--padding);
+        height: calc(100% - 2 * var(--padding));
+        width: calc(100% - 2 * var(--padding));
+    }
+}
