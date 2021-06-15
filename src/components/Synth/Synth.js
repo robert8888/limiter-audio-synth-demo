@@ -39,7 +39,7 @@ const Synth = () => {
         setFilterFreq,
         setFilterRes,
         setFilterType,
-        setFilterGain,
+        // setFilterGain,
         registerListener,
     } = useSynthConfigure();    
 

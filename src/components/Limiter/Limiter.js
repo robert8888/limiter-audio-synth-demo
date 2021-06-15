@@ -22,7 +22,7 @@ const Limiter = () => {
                     <Knob title="attack" 
                           from={0} 
                           to={0.3}
-                          value={0.005} 
+                          value={0.000}
                           fixed={3}
                           onChange={setLimiterParam.bind(null, "attack")}/>
                 </div>

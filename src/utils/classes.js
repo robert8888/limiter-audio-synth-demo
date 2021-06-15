@@ -21,5 +21,6 @@ export default function classes(names){
                 return acc;
             }, "")
         }
+        return acc;
     }, "")
 }

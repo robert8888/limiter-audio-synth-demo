@@ -1,4 +1,3 @@
-import { useCallback } from "react"
 import "./scroll-top-button.scss"
 
 export default function ScrollTopButton(){

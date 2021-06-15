@@ -33,7 +33,7 @@ export default function Modal({
                 }
             </div>
         )
-    }, [children, setIsOpen])
+    }, [children, setIsOpen, confirmButtonText])
 
     if(!isOpen) return null;
 
